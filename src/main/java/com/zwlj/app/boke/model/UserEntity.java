@@ -1,4 +1,4 @@
-package com.zwlj.app.boke.service.model;
+package com.zwlj.app.boke.model;
 
 import com.zwlj.common.model.BaseModel;
 import org.hibernate.annotations.GenericGenerator;

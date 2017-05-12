@@ -113,6 +113,12 @@
       <groupId>com.googlecode.genericdao</groupId>
       <artifactId>dao-hibernate</artifactId>
       <version>${hibernate.dao.version}</version>
+      <exclusions>
+        <exclusion>
+          <groupId>org.hibernate</groupId>
+          <artifactId>hibernate-core</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <groupId>mysql</groupId>
