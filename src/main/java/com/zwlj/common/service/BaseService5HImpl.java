@@ -15,42 +15,42 @@ public abstract class BaseService5HImpl<T extends BaseModel<ID>, ID extends Seri
     public abstract BaseDao<T, ID> getDAO();
 
     public T get(ID id) {
-        return null;
+        return this.getDAO().get(id);
     }
 
     public ID insert(T entity) {
-        return null;
+        return this.getDAO().insert(entity);
     }
 
     public void update(T entity) {
-
+        this.getDAO().update(entity);
     }
 
     public void deleteById(ID id) {
-
+        this.getDAO().deleteById(id);
     }
 
     public void delete(T entity) {
-
+        this.getDAO().delete(entity);
     }
 
     public List<T> list() {
-        return null;
+        return this.getDAO().list();
     }
 
     public List<T> list(Map<String, Object> params) {
-        return null;
+        return this.getDAO().list(params);
     }
 
     public <RT> ResultSet<RT> list(Map<String, Object> params, Page page) {
-        return null;
+        return this.getDAO().list(params, page);
     }
 
     public <RT> ResultSet<RT> list(QueryCondition conditions, Page page) {
-        return null;
+        return this.getDAO().list(conditions, page);
     }
 
     public <RT> ResultSet<RT> list(QueryCondition conditions) {
-        return null;
+        return this.getDAO().list(conditions, null);
     }
 }

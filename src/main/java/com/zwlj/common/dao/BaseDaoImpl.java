@@ -2,6 +2,9 @@ package com.zwlj.common.dao;
 
 import com.googlecode.genericdao.dao.hibernate.GenericDAOImpl;
 import com.zwlj.common.model.BaseModel;
+import com.zwlj.common.utils.Page;
+import com.zwlj.common.utils.QueryCondition;
+import com.zwlj.common.utils.ResultSet;
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -52,5 +55,21 @@ public class BaseDaoImpl<T extends BaseModel<ID>, ID extends Serializable> exten
 
     public List<T> list() {
         return findAll();
+    }
+
+    public List<T> list(Map<String, Object> params) {
+        return null;
+    }
+
+    public <RT> ResultSet<RT> list(Map<String, Object> params, Page page) {
+        return null;
+    }
+
+    public <RT> ResultSet<RT> list(QueryCondition conditions, Page page) {
+        return null;
+    }
+
+    public <RT> ResultSet<RT> list(QueryCondition conditions) {
+        return null;
     }
 }
