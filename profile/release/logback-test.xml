@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- For assistance related to logback-translator or configuration -->
+<!-- files in general, please contact the logback user mailing list -->
+<!-- at http://www.qos.ch/mailman/listinfo/logback-user -->
+<!-- -->
+<!-- For professional support please see -->
+<!-- http://www.qos.ch/shop/products/professionalSupport -->
+<!-- -->
+<configuration scan="false">
+
+	<appender name="logfile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>/opt/applications/logs/iapp.log</file>
+		<append>true</append>
+		<encoder>
+			<!-- <pattern>%d{yyyy-MM-dd HH:mm:ssS} %5p [%c]:%L-%m%n</pattern> -->
+			<pattern>%d{yyyy-MM-dd HH:mm:ssS} %5p [%c{5}#%M]:%L-%m%n%caller{0}</pattern>
+		</encoder>
+		<prudent>false</prudent>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!-- daily rollover -->
+			<fileNamePattern>/opt/applications/logs/iapp.%d{yyyy-MM-dd}.log.gz
+			</fileNamePattern>
+			<!-- keep 24*30 hour' worth of history -->
+			<maxHistory>720</maxHistory>
+		</rollingPolicy>
+	</appender>
+	
+	<appender name="iapp-druid-logfile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>/opt/applications/logs/iapp-druid.log</file>
+		<append>true</append>
+		<encoder>
+			<!-- <pattern>%d{yyyy-MM-dd HH:mm:ssS} %5p [%c]:%L-%m%n</pattern> -->
+			<pattern>%d{yyyy-MM-dd HH:mm:ssS} %5p [%c{5}#%M]:%L-%m%n%caller{0}</pattern>
+		</encoder>
+		<prudent>false</prudent>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!-- daily rollover -->
+			<fileNamePattern>/opt/applications/logs/iapp-druid.%d{yyyy-MM-dd}.log.gz
+			</fileNamePattern>
+			<!-- keep 24*30 hour' worth of history -->
+			<maxHistory>720</maxHistory>
+		</rollingPolicy>
+	</appender>
+	
+
+	<root level="info">
+		<appender-ref ref="logfile" />
+	</root>
+	
+	
+	<logger name="com.longtime.app" level="debug" additivity="true"/>
+	
+	
+	<logger name="com.alibaba.druid" level="debug" additivity="false">
+		<appender-ref ref="iapp-druid-logfile" />
+	</logger>
+
+</configuration>

@@ -1,0 +1,3 @@
+/opt/tomcat/bin/startup.sh iapp
+
+echo "start tomcat-iapp server"
