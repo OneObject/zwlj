@@ -15,7 +15,6 @@
     <hibernate.version>5.2.10.Final</hibernate.version>
     <mysqldriver.version>5.1.39</mysqldriver.version>
     <druid.version>1.0.2</druid.version>
-    <hibernate.dao.version>1.2.0</hibernate.dao.version>
 
     <!-- test -->
     <junit.version>4.12</junit.version>
@@ -108,17 +107,6 @@
       <groupId>org.hibernate</groupId>
       <artifactId>hibernate-ehcache</artifactId>
       <version>${hibernate.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>com.googlecode.genericdao</groupId>
-      <artifactId>dao-hibernate</artifactId>
-      <version>${hibernate.dao.version}</version>
-      <exclusions>
-        <exclusion>
-          <groupId>org.hibernate</groupId>
-          <artifactId>hibernate-core</artifactId>
-        </exclusion>
-      </exclusions>
     </dependency>
     <dependency>
       <groupId>mysql</groupId>

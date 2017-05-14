@@ -22,27 +22,11 @@
         <property name="timeBetweenEvictionRunsMillis" value="3000" />
         <property name="minEvictableIdleTimeMillis" value="300000" />
 
-        <property name="validationQuery" value="SELECT 'x' FROM DUAL" />
-        <property name="testWhileIdle" value="true" />
-        <property name="testOnBorrow" value="false" />
-        <property name="testOnReturn" value="false" />
-        <!-- mysql 不支持 poolPreparedStatements-->
-        <!--<property name="poolPreparedStatements" value="true" />-->
-        <!--<property name="maxPoolPreparedStatementPerConnectionSize" value="20" />-->
-
-        <!-- 开启Druid的监控统计功能 -->
-        <property name="filters" value="stat" />
-
     </bean>
 
     <bean id="apps.sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
-        <!-- <property name="namingStrategy">
-            <bean class="com.telecom.ctu.framework.domain.CTUImprovedNamingStrategy" />
-        </property> -->
         <property name="dataSource" ref="apps.dataSource" />
         <property name="hibernateProperties" value="classpath*:hibernate.properties" />
-        <!-- 指定namedQuery配置文件位置 -->
-        <property name="mappingDirectoryLocations" value="classpath*:/example/hibernate" />
         <property name="packagesToScan" value="com.zwlj.app.**.model.**" />
     </bean>
 
@@ -69,17 +53,5 @@
 
     <aop:config proxy-target-class="true">
         <aop:advisor pointcut="execution(* com.zwlj.app..service..*.*(..))" advice-ref="apps.dao.txAdvice" order="200" />
-        <!--
-        <aop:advisor pointcut="execution(* com.longtime.app..dao..*.*(..))" advice-ref="apps.dao.txAdvice" order="200" />
-         -->
-
-        <!--
-        <aop:advisor pointcut="execution(* com.longtime.app.admin.course.service..*.*(..))" advice-ref="apps.dao.txAdvice" order="200" />
-        <aop:advisor pointcut="execution(* com.longtime.app.admin.course.dao..*.*(..))" advice-ref="apps.dao.txAdvice" order="200" />
-
-        <aop:advisor pointcut="execution(* com.longtime.app.base.service..*.*(..))" advice-ref="apps.dao.txAdvice" order="200" />
-        <aop:advisor pointcut="execution(* com.longtime.app.base.dao..*.*(..))" advice-ref="apps.dao.txAdvice" order="200" />
-         -->
-
     </aop:config>
 </beans>

@@ -1,8 +1,5 @@
 package com.zwlj.common.utils;
 
-import com.googlecode.genericdao.search.ISearch;
-import com.googlecode.genericdao.search.SearchResult;
-
 import java.io.Serializable;
 import java.util.Collections;
 import java.util.List;
@@ -18,17 +15,8 @@ public class ResultSet<T> implements Serializable {
     public ResultSet(){}
 
     public ResultSet(List<T> items,int page_size,int current_page, int total_size) {
-        this.items = items;
+        this.setItems(items);
         this.page = new Page(current_page, page_size, total_size);
-    }
-
-    public ResultSet(SearchResult<T> searchResult, ISearch iSearch) {
-        if (null == searchResult) return;
-        this.items = searchResult.getResult();
-        this.page = new Page();
-        this.page.setCurrent_page(iSearch.getPage() + 1);
-        this.page.setPage_size(iSearch.getMaxResults());
-        this.page.setTotal_size(searchResult.getTotalCount());
     }
 
     public List<T> getItems() {

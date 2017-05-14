@@ -1,6 +1,5 @@
 package com.zwlj.common.dao;
 
-import com.googlecode.genericdao.dao.hibernate.GenericDAO;
 import com.zwlj.common.model.BaseModel;
 import com.zwlj.common.utils.Page;
 import com.zwlj.common.utils.QueryCondition;
@@ -10,7 +9,7 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
-public interface BaseDao<T extends BaseModel<ID>, ID extends Serializable> extends GenericDAO<T, ID> {
+public interface BaseDao<T extends BaseModel<ID>, ID extends Serializable> {
 
     int execute(String hql, Map<String, Object> params);
 
@@ -22,9 +21,9 @@ public interface BaseDao<T extends BaseModel<ID>, ID extends Serializable> exten
 
     void update(T entity);
 
-    boolean deleteById(ID id);
+    void deleteById(ID id);
 
-    boolean delete(T entity);
+    void delete(T entity);
 
     List<T> list();
 
