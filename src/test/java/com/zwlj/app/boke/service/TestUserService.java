@@ -27,12 +27,12 @@ public class TestUserService {
 
     private Logger logger = LoggerFactory.getLogger(TestUserService.class);
 
-
+    @Test
     public void insert() {
         UserEntity userEntity = new UserEntity();
-        userEntity.setAddress("北京西路");
+        userEntity.setAddress("北京西路23");
         userEntity.setAge(10);
-        userEntity.setUserName("Jack");
+        userEntity.setUserName("TTJackTT");
         userEntity.setBathDate(new DateTime(2010, 10, 10, 12, 10).getMillis());
         userService.insert(userEntity);
     }
@@ -61,7 +61,6 @@ public class TestUserService {
         for (QueryFilter filter : queryCondition.getFilters()) {
             logger.debug("sql where info: {}", filter);
         }
-        queryCondition.getSort();
     }
 
     @Test
@@ -69,6 +68,6 @@ public class TestUserService {
         Map<String, Object> params = Maps.newHashMap();
         params.put("userName", "Jack");
         params.put("age", 10);
-        logger.debug("sql result info: [{}]", userService.list(params, new Page(1)));
+        logger.debug("sql result info: [{}]", userService.list(params, new Page(1, 2)));
     }
 }

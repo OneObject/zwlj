@@ -9,7 +9,7 @@ public class Page implements Serializable {
 
     private int page_size = PAGE_SIZE_DEFAULT;  // 每页条数，<=0 代表不分页
     private int current_page = CURRENT_PAGE_DEFAULT;    //当前页
-    private int total_size; //总条数
+    private long total_size; //总条数
 
     public Page() {}
 
@@ -22,7 +22,7 @@ public class Page implements Serializable {
         this.setPage_size(page_size);
     }
 
-    public Page(int current_page, int page_size, int total_size) {
+    public Page(int current_page, int page_size, long total_size) {
         this.setCurrent_page(current_page);
         this.setPage_size(page_size);
         this.setTotal_size(total_size);
@@ -50,16 +50,16 @@ public class Page implements Serializable {
         this.current_page = current_page;
     }
 
-    public int getTotal_size() {
+    public long getTotal_size() {
         return total_size;
     }
 
-    public void setTotal_size(int total_size) {
+    public void setTotal_size(long total_size) {
         this.total_size = total_size;
     }
 
     // 总共多少页
-    public int getTotal_page() {
+    public long getTotal_page() {
         if (page_size <= 0)
             return 1;
         return (this.total_size + this.page_size - 1) / this.page_size;

@@ -111,15 +111,11 @@ public class BaseDaoImpl<T extends BaseModel<ID>, ID extends Serializable> imple
         // 查询列表
         Query<RT> query = session.createQuery(hql.toString());
         this.queryAddParams(query, params);
-        query.setFirstResult(page.getCurrent_page() - 1 * page.getPage_size());
+        query.setFirstResult((page.getCurrent_page() - 1) * page.getPage_size());
         query.setMaxResults(page.getPage_size());
         List<RT> list = query.list();
 
-        // 查询总数
-        Query total = session.createQuery(hql.toString());
-        this.queryAddParams(total, params);
-
-        return new ResultSet<RT>(list, page.getPage_size(), page.getCurrent_page(), total.list().size());
+        return new ResultSet<RT>(list, page.getPage_size(), page.getCurrent_page(), count(hql, params));
     }
 
     public <RT> ResultSet<RT> list(QueryCondition conditions, Page page) {
@@ -157,5 +153,14 @@ public class BaseDaoImpl<T extends BaseModel<ID>, ID extends Serializable> imple
                 query.setParameter(key, params.get(key));
             }
         }
+    }
+
+    private long count(StringBuilder hql, Map<String, Object> params) {
+        Session session = getCurrentSession();
+        hql.insert(0, " select count(*) ");
+
+        Query<Long> query = session.createQuery(hql.toString());
+        queryAddParams(query, params);
+        return query.getSingleResult();
     }
 }

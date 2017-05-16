@@ -8,7 +8,7 @@ public class QueryCondition {
 
 	List<QueryFilter> filters = Lists.newArrayList();
 
-	Sort sort ;
+	List<Sort> sorts;
 
 	public QueryCondition() {
 
@@ -53,15 +53,7 @@ public class QueryCondition {
 	
 	
 	public QueryCondition  addSort(Sort sort){
-		this.sort = sort;
-		return this;
-	}
-	
-	public QueryCondition addOrder(String feild, Sort.Order order){
-		if(this.sort==null){
-			sort = new Sort();
-		}
-		this.sort.on(feild, order);
+		this.sorts.add(sort);
 		return this;
 	}
 
@@ -74,14 +66,5 @@ public class QueryCondition {
 	public void setFilters(List<QueryFilter> filters) {
 		this.filters = filters;
 	}
-
-	public Sort getSort() {
-		return sort;
-	}
-
-	public void setSort(Sort sort) {
-		this.sort = sort;
-	}
-	
 	
 }

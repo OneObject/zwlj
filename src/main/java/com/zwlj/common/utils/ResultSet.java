@@ -14,7 +14,7 @@ public class ResultSet<T> implements Serializable {
 
     public ResultSet(){}
 
-    public ResultSet(List<T> items,int page_size,int current_page, int total_size) {
+    public ResultSet(List<T> items,int page_size,int current_page, long total_size) {
         this.setItems(items);
         this.page = new Page(current_page, page_size, total_size);
     }
