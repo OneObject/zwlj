@@ -64,9 +64,7 @@ public class TestUserService {
         logger.debug("sql result info: [{}]", userService.list(params, new Page(1, 2)));
         System.out.println("完美测试！");
         System.out.println("冲突");
+        // 按apply
     }
 
-    //测试开始，黄健
-    //这次push是否成功
-    //完美
 }
