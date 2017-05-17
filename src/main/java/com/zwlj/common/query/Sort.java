@@ -1,4 +1,4 @@
-package com.zwlj.common.utils;
+package com.zwlj.common.query;
 
 import java.util.LinkedHashMap;
 import java.util.Map;

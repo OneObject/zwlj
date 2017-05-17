@@ -1,21 +1,20 @@
 package com.zwlj.common.dao;
 
 import com.zwlj.common.model.BaseModel;
-import com.zwlj.common.utils.Page;
-import com.zwlj.common.utils.QueryCondition;
-import com.zwlj.common.utils.QueryFilter;
-import com.zwlj.common.utils.ResultSet;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.query.Query;
+import com.zwlj.common.query.Page;
+import com.zwlj.common.utils.QueryUtil;
+import com.zwlj.common.query.ResultSet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -26,18 +25,13 @@ public class BaseDaoImpl<T extends BaseModel<ID>, ID extends Serializable> imple
 
     private Class<T> entityClass;
 
-    protected SessionFactory sessionFactory;
+    @PersistenceContext
+    protected EntityManager manager;
 
-    public BaseDaoImpl(SessionFactory sessionFactory) {
+    public BaseDaoImpl() {
         Type type = getClass().getGenericSuperclass();
         Type[] types = ((ParameterizedType) type).getActualTypeArguments();
         entityClass = (Class<T>) types[0];
-
-        this.sessionFactory = sessionFactory;
-    }
-
-    protected Session getCurrentSession() {
-        return this.sessionFactory.getCurrentSession();
     }
 
     public int execute(String hql, Map<String, Object> params) {
@@ -50,80 +44,64 @@ public class BaseDaoImpl<T extends BaseModel<ID>, ID extends Serializable> imple
 
     public T get(ID id) {
         if(id != null) {
-            return getCurrentSession().find(entityClass, id);
+            return manager.find(entityClass, id);
         }
         return null;
     }
 
     public ID insert(T entity) {
         // 如果传递进persist()方法的参数不是实体Bean，会引发IllegalArgumentException
-        getCurrentSession().persist(entity);
+        manager.persist(entity);
         return entity.getId();
     }
 
     public void update(T entity) {
-        Session session = getCurrentSession();
-        if(session.contains(entity)) {
-            session.refresh(entity);
+        if(manager.contains(entity)) {
+            manager.refresh(entity);
         } else {
-            session.merge(entity);
-            session.refresh(entity);
+            manager.merge(entity);
+            manager.refresh(entity);
         }
     }
 
     public void deleteById(ID id) {
-        Session session = getCurrentSession();
-        T entity = session.find(entityClass, id);
-        session.remove(entity);
+        T entity = manager.find(entityClass, id);
+        manager.remove(entity);
     }
 
     public void delete(T entity) {
-        getCurrentSession().remove(entity);
+        manager.remove(entity);
     }
 
     public List<T> list() {
-        Session session = getCurrentSession();
         String hql = String.format("from %s", entityClass.getName());
-        Query<T> query = session.createQuery(hql);
-        return query.list();
+        TypedQuery<T> query = (TypedQuery<T>) manager.createQuery(hql);
+        return query.getResultList();
     }
 
     public List<T> list(Map<String, Object> params) {
-        Session session = getCurrentSession();
-
         StringBuilder hql = new StringBuilder("from ");
         hql.append(entityClass.getName());
         this.hqlAddParams(hql, params);
 
-        Query<T> query = session.createQuery(hql.toString());
+        TypedQuery<T> query = (TypedQuery<T>) manager.createQuery(hql.toString());
         this.queryAddParams(query, params);
 
-        return query.list();
+        return query.getResultList();
     }
 
     public <RT> ResultSet<RT> list(Map<String, Object> params, Page page) {
-        Session session = getCurrentSession();
-
         StringBuilder hql = new StringBuilder(" from ");
         hql.append(entityClass.getName());
         this.hqlAddParams(hql, params);
 
         // 查询列表
-        Query<RT> query = session.createQuery(hql.toString());
+        TypedQuery<RT> query = (TypedQuery<RT>) manager.createQuery(hql.toString());
         this.queryAddParams(query, params);
-        query.setFirstResult((page.getCurrent_page() - 1) * page.getPage_size());
-        query.setMaxResults(page.getPage_size());
-        List<RT> list = query.list();
+        this.queryAddPaging(query, page);
+        List<RT> list = query.getResultList();
 
         return new ResultSet<RT>(list, page.getPage_size(), page.getCurrent_page(), count(hql, params));
-    }
-
-    public <RT> ResultSet<RT> list(QueryCondition conditions, Page page) {
-        return null;
-    }
-
-    public <RT> ResultSet<RT> list(QueryCondition conditions) {
-        return null;
     }
 
     private void hqlAddParams(StringBuilder hql, Map<String, Object> params) {
@@ -143,10 +121,6 @@ public class BaseDaoImpl<T extends BaseModel<ID>, ID extends Serializable> imple
         }
     }
 
-    private void addLimit(StringBuilder hql, Map<String, Object> params) {
-
-    }
-
     private void queryAddParams(Query query, Map<String, Object> params) {
         if(params != null && params.size() > 0) {
             for (String key : params.keySet()) {
@@ -155,12 +129,22 @@ public class BaseDaoImpl<T extends BaseModel<ID>, ID extends Serializable> imple
         }
     }
 
+    private void queryAddPaging(Query query, Page page) {
+        int firstResult = QueryUtil.getFirstResult(page);
+        int maxResult = QueryUtil.getMaxResult(page);
+        if (firstResult > 0) {
+            query.setFirstResult(firstResult);
+        }
+        if (maxResult > 0) {
+            query.setMaxResults(maxResult);
+        }
+    }
+
     private long count(StringBuilder hql, Map<String, Object> params) {
-        Session session = getCurrentSession();
         hql.insert(0, " select count(*) ");
 
-        Query<Long> query = session.createQuery(hql.toString());
+        Query query = manager.createQuery(hql.toString());
         queryAddParams(query, params);
-        return query.getSingleResult();
+        return (Long) query.getSingleResult();
     }
 }

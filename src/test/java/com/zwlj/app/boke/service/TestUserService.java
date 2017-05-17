@@ -2,10 +2,9 @@ package com.zwlj.app.boke.service;
 
 import com.google.common.collect.Maps;
 import com.zwlj.app.boke.model.UserEntity;
-import com.zwlj.common.utils.Page;
-import com.zwlj.common.utils.QueryCondition;
+import com.zwlj.common.query.Page;
 import com.zwlj.common.utils.QueryFilter;
-import com.zwlj.common.utils.Sort;
+import com.zwlj.common.query.Sort;
 import org.joda.time.DateTime;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,7 +14,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.annotation.Resource;
-import java.util.List;
 import java.util.Map;
 
 @RunWith(SpringJUnit4ClassRunner.class)

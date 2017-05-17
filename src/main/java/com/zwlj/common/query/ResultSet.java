@@ -1,4 +1,6 @@
-package com.zwlj.common.utils;
+package com.zwlj.common.query;
+
+import com.zwlj.common.query.Page;
 
 import java.io.Serializable;
 import java.util.Collections;

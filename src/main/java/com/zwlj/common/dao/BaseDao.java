@@ -1,9 +1,8 @@
 package com.zwlj.common.dao;
 
 import com.zwlj.common.model.BaseModel;
-import com.zwlj.common.utils.Page;
-import com.zwlj.common.utils.QueryCondition;
-import com.zwlj.common.utils.ResultSet;
+import com.zwlj.common.query.Page;
+import com.zwlj.common.query.ResultSet;
 
 import java.io.Serializable;
 import java.util.List;
@@ -30,9 +29,5 @@ public interface BaseDao<T extends BaseModel<ID>, ID extends Serializable> {
     List<T> list(Map<String, Object> params);
 
     <RT> ResultSet<RT> list(Map<String, Object> params, Page page);
-
-    <RT> ResultSet<RT> list(QueryCondition conditions , Page page);
-
-    <RT> ResultSet<RT> list(QueryCondition  conditions );
 
 }
