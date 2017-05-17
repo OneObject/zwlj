@@ -62,8 +62,10 @@ public class TestUserService {
         params.put("userName", "Jack");
         params.put("age", 10);
         logger.debug("sql result info: [{}]", userService.list(params, new Page(1, 2)));
+        System.out.println("完美测试！");
     }
 
     //测试开始，黄健
     //这次push是否成功
+    //完美
 }
