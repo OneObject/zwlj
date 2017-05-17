@@ -3,6 +3,7 @@ package com.zwlj.common.service;
 import com.zwlj.common.dao.BaseDao;
 import com.zwlj.common.model.BaseModel;
 import com.zwlj.common.query.Page;
+import com.zwlj.common.query.QueryCondition;
 import com.zwlj.common.query.ResultSet;
 
 import java.io.Serializable;
@@ -45,4 +46,11 @@ public abstract class BaseService5HImpl<T extends BaseModel<ID>, ID extends Seri
         return this.getDAO().list(params, page);
     }
 
+    public List<T> list(QueryCondition queryCondition) {
+        return this.getDAO().list(queryCondition);
+    }
+
+    public <RT> ResultSet<RT> list(QueryCondition queryCondition, Page page) {
+        return this.getDAO().list(queryCondition, page);
+    }
 }

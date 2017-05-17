@@ -2,6 +2,7 @@ package com.zwlj.common.service;
 
 import com.zwlj.common.model.BaseModel;
 import com.zwlj.common.query.Page;
+import com.zwlj.common.query.QueryCondition;
 import com.zwlj.common.query.ResultSet;
 
 import java.io.Serializable;
@@ -24,6 +25,9 @@ public interface BaseService<T extends BaseModel<ID>, ID extends Serializable> {
 
     List<T> list(Map<String, Object> params);
 
+    List<T> list(QueryCondition queryCondition);
+
     <RT> ResultSet<RT> list(Map<String, Object> params, Page page);
 
+    <RT> ResultSet<RT> list(QueryCondition queryCondition, Page page);
 }

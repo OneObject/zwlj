@@ -1,51 +1,45 @@
 package com.zwlj.common.query;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-
+/**
+ * 排序
+ */
 public class Sort {
 
-	public static final Integer ORDER_ASC = 1; //升序
-	public static final Integer ORDER_DES = 0; //降序
+	protected String property;
+	protected boolean desc = false;
 
-	private Map<String, Integer> orders = new LinkedHashMap<String, Integer>();
-
-	public Sort() {
-	}
-	
-	public Sort(String key, Integer order) {
-	    this.orders.put(key, order);
+	public Sort(String property) {
+		this.property = property;
 	}
 
-	public Sort(String key, Order order) {
-		this.orders.put(key, order.code);
+	public Sort(String property, boolean desc) {
+		this.property = property;
+		this.desc = desc;
 	}
 
-	public Sort on(String key, Order order) {
-		this.orders.put(key, order.code);
-		return this;
-	}
-	
-	
-
-	public Map<String, Integer> getOrders() {
-		return orders;
+	/**
+	 * 升序
+	 * @param property java属性
+	 * @return 排序
+	 */
+	public static Sort asc(String property) {
+		return new Sort(property);
 	}
 
-	public void setOrders(Map<String, Integer> orders) {
-		this.orders = orders;
+	/**
+	 * 降序
+	 * @param property java属性
+	 * @return 排序
+	 */
+	public static Sort desc(String property) {
+		return new Sort(property);
 	}
 
+	public String getProperty() {
+		return property;
+	}
 
-
-
-	public enum  Order{
-		ASC(1),
-		DES(0);
-		
-		public int code;
-		Order(int code){
-			this.code = code;
-		}
+	public boolean isDesc() {
+		return desc;
 	}
 }

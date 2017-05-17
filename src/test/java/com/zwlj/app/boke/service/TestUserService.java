@@ -3,7 +3,8 @@ package com.zwlj.app.boke.service;
 import com.google.common.collect.Maps;
 import com.zwlj.app.boke.model.UserEntity;
 import com.zwlj.common.query.Page;
-import com.zwlj.common.utils.QueryFilter;
+import com.zwlj.common.query.QueryCondition;
+import com.zwlj.common.query.QueryFilter;
 import com.zwlj.common.query.Sort;
 import org.joda.time.DateTime;
 import org.junit.Test;
@@ -49,16 +50,7 @@ public class TestUserService {
 
     @Test
     public void testQueryFilter() {
-        QueryCondition queryCondition = new QueryCondition();
-        queryCondition.addFilterEqual("name", "Jack");
-        queryCondition.addFilterEqual("aa", "bb");
-        queryCondition.addFilterEqual("cc", 22);
-        queryCondition.addFilter(new QueryFilter("ss", 22, QueryFilter.OP_AND));
-        queryCondition.addSort(new Sort("createtime", Sort.Order.ASC));
 
-        for (QueryFilter filter : queryCondition.getFilters()) {
-            logger.debug("sql where info: {}", filter);
-        }
     }
 
     @Test

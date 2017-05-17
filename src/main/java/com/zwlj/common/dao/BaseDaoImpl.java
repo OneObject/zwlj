@@ -2,10 +2,9 @@ package com.zwlj.common.dao;
 
 import com.zwlj.common.model.BaseModel;
 import com.zwlj.common.query.Page;
+import com.zwlj.common.query.QueryCondition;
 import com.zwlj.common.utils.QueryUtil;
 import com.zwlj.common.query.ResultSet;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
@@ -20,8 +19,6 @@ import java.util.Map;
 
 @Transactional
 public class BaseDaoImpl<T extends BaseModel<ID>, ID extends Serializable> implements BaseDao<T, ID> {
-
-    protected Logger logger = LoggerFactory.getLogger(this.getClass());
 
     private Class<T> entityClass;
 
@@ -102,6 +99,32 @@ public class BaseDaoImpl<T extends BaseModel<ID>, ID extends Serializable> imple
         List<RT> list = query.getResultList();
 
         return new ResultSet<RT>(list, page.getPage_size(), page.getCurrent_page(), count(hql, params));
+    }
+
+    public List<T> list(QueryCondition queryCondition) {
+        String tableName = entityClass.getName();
+
+        String hql = QueryUtil.generateSQL(null, tableName, queryCondition);
+        Map<String, Object> params = QueryUtil.generateParamMap(queryCondition);
+
+        TypedQuery<T> query = (TypedQuery<T>) manager.createQuery(hql);
+        this.queryAddParams(query, params);
+
+        return query.getResultList();
+    }
+
+    public <RT> ResultSet<RT> list(QueryCondition queryCondition, Page page) {
+        String tableName = entityClass.getName();
+
+        String hql = QueryUtil.generateSQL(null, tableName, queryCondition);
+        Map<String, Object> params = QueryUtil.generateParamMap(queryCondition);
+
+        TypedQuery<RT> query = (TypedQuery<RT>) manager.createQuery(hql);
+        this.queryAddParams(query, params);
+        this.queryAddPaging(query, page);
+        List<RT> list = query.getResultList();
+
+        return new ResultSet<RT>(list, page.getPage_size(), page.getCurrent_page(), count(new StringBuilder(hql), params));
     }
 
     private void hqlAddParams(StringBuilder hql, Map<String, Object> params) {
