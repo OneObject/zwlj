@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<taglib xmlns="http://java.sun.com/xml/ns/javaee"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-jsptaglibrary_2_1.xsd"
+        version="2.1">
+
+    <tlib-version>1.0</tlib-version>
+    <short-name>zw</short-name>
+    <uri>http://www.zwlj.com/taglib-elFunctions</uri>
+
+    <!-- Invoke 'Generate' action to add tags or functions -->
+    <function>
+        <name>longToDate</name>
+        <function-class>com.zwlj.common.support.ElFunction</function-class>
+        <function-signature>java.lang.String longToDate(long)</function-signature>
+    </function>
+
+</taglib>

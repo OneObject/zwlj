@@ -4,7 +4,6 @@ import com.google.common.collect.Maps;
 import com.zwlj.app.boke.model.UserEntity;
 import com.zwlj.common.query.Page;
 import com.zwlj.common.query.QueryCondition;
-import com.zwlj.common.query.QueryFilter;
 import com.zwlj.common.query.Sort;
 import org.joda.time.DateTime;
 import org.junit.Test;
