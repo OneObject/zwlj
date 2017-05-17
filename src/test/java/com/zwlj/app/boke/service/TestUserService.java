@@ -64,7 +64,9 @@ public class TestUserService {
         logger.debug("sql result info: [{}]", userService.list(params, new Page(1, 2)));
         System.out.println("完美测试！");
         System.out.println("冲突");
-        // 按apply
+        // 按apply，left apply 是接受你的，riri是选择你的版本，中间的是让我手动选择那些要那些不要的，选择之后apply，是不是！对对
+        //若果我直接APPLY，选择的是什么？中间的？对，apply就是中间的版本，明白了，若果三个人修改了，是不是再增加那个人的版本？不会
+        // right 是最新版本，
     }
 
 }
