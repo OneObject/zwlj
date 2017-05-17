@@ -50,7 +50,11 @@ public class TestUserService {
 
     @Test
     public void testQueryFilter() {
+        QueryCondition condition = QueryCondition.newInstance();
+        condition.addEqualFilter("userName", "Jack");
+        condition.addSort(Sort.asc("bathDate"));
 
+        logger.debug("userList[{}]", userService.list(condition, new Page(1, 1)));
     }
 
     @Test

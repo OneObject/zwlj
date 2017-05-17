@@ -78,7 +78,8 @@ public class QueryUtil {
             sql_order = sb.toString();
         }
 
-        return String.format("select %s from %s %s %s", sql_select,sql_from,sql_where,sql_order);
+        //return String.format("select %s from %s %s %s", sql_select,sql_from,sql_where,sql_order);
+        return String.format(" from %s %s %s", sql_from,sql_where,sql_order);
     }
 
     public static String generateCountSQL(String tableName, QueryCondition search) {
