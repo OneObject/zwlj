@@ -6,10 +6,8 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Table;
 
-@Entity
-@Table(name = "base_user")
+@Entity(name = "base_user")
 public class UserEntity extends BaseModel<Long> {
 
     @Id

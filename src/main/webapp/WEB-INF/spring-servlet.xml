@@ -10,7 +10,7 @@
     <context:property-placeholder location="classpath*:com.zwlj.properties" />
     <context:annotation-config />
     <!-- 自动扫描的包名 -->
-    <context:component-scan base-package="com.zwlj.app.*.web" />
+    <context:component-scan base-package="com.zwlj.app.**.web" />
     <!-- 默认的注解映射的支持 -->
     <mvc:annotation-driven />
 
@@ -39,6 +39,12 @@
 
         <property name="prefix" value="/WEB-INF/view/" />
         <property name="suffix" value=".jsp" />
+    </bean>
+
+    <!-- this bean with the well known name generates view names for us -->
+    <bean id="viewNameTranslator"
+          class="org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator">
+
     </bean>
 
 </beans>
