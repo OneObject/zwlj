@@ -33,11 +33,13 @@ public class VideoController {
         String title = request.getParameter("title");
         String videoUrl = request.getParameter("videoUrl");
         String content = request.getParameter("content");
+        String cover = request.getParameter("cover");
 
         VideoEntity videoEntity = new VideoEntity();
         videoEntity.setTitle(title);
         videoEntity.setVideoUrl(videoUrl);
         videoEntity.setContent(content);
+        videoEntity.setCover(cover);
         videoService.insert(videoEntity);
     }
 

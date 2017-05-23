@@ -1,6 +1,7 @@
 package com.zwlj.app.life.video.model;
 
 import com.zwlj.common.model.BaseModel;
+import com.zwlj.common.utils.HibernateStrategy;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.Column;
@@ -12,18 +13,22 @@ import javax.persistence.Id;
 public class VideoEntity extends BaseModel<String> {
 
     @Id
-    @GenericGenerator(name = "idGen", strategy = "uuid")
+    @GenericGenerator(name = "idGen", strategy = HibernateStrategy.UUID)
     @GeneratedValue(generator = "idGen")
     @Column(length = 40)
     private String id;
 
     private String title;   //标题
 
+    private String cover;   //标题地址
+
     private String videoUrl;    //视频地址
 
     private String localUrl;    //本地地址
 
     private String content;     //信息
+
+    private long fileSize;  //文件大小，单位：M
 
     private boolean uploadLocal = false;    //是否下载到本地
 
@@ -36,20 +41,38 @@ public class VideoEntity extends BaseModel<String> {
         return "VideoEntity{" +
                 "id='" + id + '\'' +
                 ", title='" + title + '\'' +
+                ", cover='" + cover + '\'' +
                 ", videoUrl='" + videoUrl + '\'' +
                 ", localUrl='" + localUrl + '\'' +
                 ", content='" + content + '\'' +
+                ", fileSize=" + fileSize +
                 ", uploadLocal=" + uploadLocal +
                 ", createTime=" + createTime +
                 ", updateTime=" + updateTime +
-                '}';
+                "} " + super.toString();
+    }
+
+    public long getFileSize() {
+        return fileSize;
+    }
+
+    public void setFileSize(long fileSize) {
+        this.fileSize = fileSize;
+    }
+
+    public String getCover() {
+        return cover;
+    }
+
+    public void setCover(String cover) {
+        this.cover = cover;
     }
 
     public String getId() {
         return id;
     }
 
-    public void setId(String id) {
+    private void setId(String id) {
         this.id = id;
     }
 

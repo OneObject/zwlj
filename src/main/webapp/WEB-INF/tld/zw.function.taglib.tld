@@ -16,4 +16,10 @@
         <function-signature>java.lang.String longToDate(long)</function-signature>
     </function>
 
+    <function>
+        <name>longToDatePattern</name>
+        <function-class>com.zwlj.common.support.ElFunction</function-class>
+        <function-signature>java.lang.String longToDate(long,java.lang.String)</function-signature>
+    </function>
+
 </taglib>
