@@ -24,7 +24,7 @@ public class GuessController {
     private GuessService guessService;
 
     @RequestMapping("index")
-    public String index(HttpSession session, ModelMap modelMap) {
+    public String index() {
 
         return "fun/game/guess/index";
     }
