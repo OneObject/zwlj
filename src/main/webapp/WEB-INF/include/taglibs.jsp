@@ -7,3 +7,6 @@
 <c:set var="basepath" value="${SERVER}${pageContext.request.contextPath}" />
 <c:set var="path" value="${SERVER}${pageContext.request.contextPath}" />
 <c:set var="requestURL" value="${pageContext.request.requestURL}" />
+<script>
+    var path = "${path}";
+</script>
