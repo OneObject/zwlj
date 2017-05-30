@@ -24,7 +24,7 @@ public class GuessModel extends BaseModel<Long> {
 
     private int time = 1;   // 猜测的次数
 
-    private long createTime;    //创建时间
+    private long createTime = System.currentTimeMillis();    //创建时间
 
     private long createSysTime;     //系统生成数字的时间与数字组成唯一标识
 
